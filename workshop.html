@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Monthly Maths Workshop</title>
+  <meta name="description" content="A monthly maths workshop with problem-solving, contests prep, and fun math for Years 7–13. Join the mailing list for updates." />
+  <style>
+    :root{
+      --bg:#0b1020;        /* deep blue */
+      --card:#121a34;      /* card blue */
+      --ink:#e8ecff;       /* near-white */
+      --muted:#97a3d1;     /* soft gray-blue */
+      --accent:#7c9cff;    /* primary */
+      --accent-2:#50e3c2;  /* mint */
+      --ring:rgba(124,156,255,.4);
+      --danger:#ff6b6b;
+      --ok:#59d38b;
+      --shadow: 0 20px 30px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.25);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color:var(--ink); background: radial-gradient(1200px 700px at 80% -10%, #1a2250 0, transparent 60%),
+                        radial-gradient(1000px 500px at -20% -10%, #162141 0, transparent 60%), var(--bg);
+      line-height:1.6;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{width:min(1100px, 92vw); margin-inline:auto}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:40; backdrop-filter:saturate(180%) blur(10px); background:rgba(11,16,32,.55); border-bottom:1px solid rgba(255,255,255,.05)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.3px}
+    .brand .logo{width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); display:grid; place-items:center; box-shadow:var(--shadow); font-weight:800; color:#0b1020}
+    .nav a{color:var(--ink)}
+    .nav-links{display:flex; gap:22px; align-items:center}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 16px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:#0e1734; cursor:pointer; color:var(--ink); transition:transform .08s ease, box-shadow .2s ease, background .2s}
+    .btn:hover{transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.3)}
+    .btn.primary{background:linear-gradient(135deg, var(--accent), #5d7cff); border: none; color:#0b1020; font-weight:700}
+    .btn.ghost{background:transparent}
+
+    /* Hero */
+    .hero{padding:80px 0 30px}
+    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:36px}
+    .headline{font-size:clamp(28px, 4vw, 48px); line-height:1.1; margin:6px 0 12px; font-weight:800}
+    .sub{color:var(--muted); font-size:clamp(14px, 1.7vw, 18px)}
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background:rgba(124,156,255,.12); border:1px solid rgba(124,156,255,.25); color:#cfe0ff; font-size:13px}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow)}
+    .hero-card h3{margin:6px 0 8px}
+
+    .grid{display:grid; gap:16px}
+    .features{grid-template-columns:repeat(3, 1fr); margin-top:16px}
+    .card{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow)}
+    .card h4{margin:0 0 6px}
+    .card p{margin:0}
+
+    /* Info section */
+    section{padding:56px 0}
+    .section-title{font-size:26px; margin:0 0 10px}
+    .muted{color:var(--muted)}
+    .schedule{grid-template-columns:repeat(3, 1fr)}
+    .slot{display:flex; flex-direction:column; gap:6px}
+    .tag{display:inline-flex; width:max-content; gap:8px; align-items:center; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04); font-size:12px; color:#d7defa}
+
+    /* FAQ */
+    .faq{grid-template-columns:1fr 1fr}
+    details{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:14px 16px}
+    summary{cursor:pointer; font-weight:600}
+    details p{margin:10px 0 0}
+
+    /* Newsletter CTA */
+    .cta{display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; background:linear-gradient(180deg, rgba(80,227,194,.12), rgba(124,156,255,.12)); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius); padding:20px}
+    .form{display:flex; gap:10px; width:100%; max-width:560px}
+    input, button{font:inherit}
+    .input{flex:1; padding:12px 14px; background:#0f1630; border:1px solid rgba(255,255,255,.14); border-radius:999px; color:var(--ink); outline:none}
+    .input:focus{border-color:var(--accent); box-shadow:0 0 0 6px var(--ring)}
+
+    /* Footer */
+    footer{padding:36px 0; color:var(--muted)}
+
+    /* Modal */
+    .modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.5); display:none; align-items:center; justify-content:center; z-index:60}
+    .modal{width:min(560px, 92vw); background:var(--card); border:1px solid rgba(255,255,255,.1); border-radius:16px; box-shadow:var(--shadow)}
+    .modal header{position:relative; background:transparent; border:none}
+    .modal .content{padding:18px}
+    .close-x{position:absolute; top:10px; right:12px; border:none; background:transparent; color:var(--ink); font-size:22px; cursor:pointer}
+    .visually-hidden{position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap}
+
+    /* Toast */
+    .toast{position:fixed; right:18px; bottom:20px; background:#0f1a36; border:1px solid rgba(255,255,255,.15); color:var(--ink); padding:12px 14px; border-radius:12px; display:none; z-index:80}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns:1fr}
+      .features{grid-template-columns:1fr 1fr}
+      .schedule{grid-template-columns:1fr 1fr}
+      .faq{grid-template-columns:1fr}
+    }
+    @media (max-width: 580px){
+      .features, .schedule{grid-template-columns:1fr}
+      .form{flex-direction:column}
+      .btn{width:100%; justify-content:center}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">∑</div>
+        <a href="#top" aria-label="Monthly Maths Workshop Home">Monthly Maths Workshop</a>
+      </div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#info">Info</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#faq">FAQ</a>
+        <button class="btn" id="open-modal" type="button" aria-haspopup="dialog">Get Updates</button>
+        <a class="btn primary" href="#signup">Join Free</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="pill">New • Monthly hands-on maths</div>
+          <h1 class="headline">Problem-Solving, Proofs & Play — one Saturday each month</h1>
+          <p class="sub">For Years 7–13 (ages ~11–18). Each session blends contest-style problems, proof ideas, and fun explorations. Beginner-friendly groups and advanced tracks available.</p>
+          <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap">
+            <a class="btn primary" href="#signup">Join the notification list</a>
+            <button class="btn ghost" id="scroll-info" type="button">View workshop info</button>
+          </div>
+        </div>
+        <aside class="hero-card" aria-labelledby="next-session-heading">
+          <h3 id="next-session-heading">Next Session</h3>
+          <div class="grid" style="grid-template-columns:1fr 1fr; gap:10px">
+            <div class="card">
+              <h4 style="margin:0 0 4px">Date</h4>
+              <p class="muted" id="next-date">First Saturday next month</p>
+            </div>
+            <div class="card">
+              <h4 style="margin:0 0 4px">Time</h4>
+              <p class="muted">10:00–12:00</p>
+            </div>
+            <div class="card">
+              <h4 style="margin:0 0 4px">Venue</h4>
+              <p class="muted">Community Learning Hub / Online</p>
+            </div>
+            <div class="card">
+              <h4 style="margin:0 0 4px">Theme</h4>
+              <p class="muted">Number Theory ⚡</p>
+            </div>
+          </div>
+          <p class="muted" style="margin:12px 0 0">Subscribe for exact dates, topics, and resources.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="info">
+      <div class="container">
+        <h2 class="section-title">About the Workshop</h2>
+        <p class="muted">We meet once a month to tackle rich problems, swap strategies, and build mathematical habits of mind. Sessions are split by level, so newcomers and competition veterans both find a challenge.</p>
+        <div class="grid features">
+          <div class="card">
+            <h4>Hands-on Problems</h4>
+            <p>Work in small groups on geometry, number theory, algebra, combinatorics, and logic.</p>
+          </div>
+          <div class="card">
+            <h4>Proofs, not tricks</h4>
+            <p>Go beyond answers: learn how and why solutions work. Induction, invariants, parity & more.</p>
+          </div>
+          <div class="card">
+            <h4>Friendly Prep</h4>
+            <p>Supportive practice for AMO/IMO style contests — no pressure, lots of curiosity.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="schedule">
+      <div class="container">
+        <h2 class="section-title">Typical Monthly Plan</h2>
+        <p class="muted">Exact dates may vary. Sign up to receive the monthly email with topics and materials.</p>
+        <div class="grid schedule">
+          <div class="card slot">
+            <span class="tag">10:00–10:15</span>
+            <h4>Warm-up & Patterns</h4>
+            <p class="muted">Quick problems, pattern spotting, strategy sharing.</p>
+          </div>
+          <div class="card slot">
+            <span class="tag">10:15–11:15</span>
+            <h4>Deep Dive</h4>
+            <p class="muted">One theme, multiple levels. Example: Pigeonhole or Modular Arithmetic.</p>
+          </div>
+          <div class="card slot">
+            <span class="tag">11:15–12:00</span>
+            <h4>Team Round</h4>
+            <p class="muted">Collaborative challenge, then brief solution walk-throughs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <h2 class="section-title">FAQ</h2>
+        <div class="grid faq">
+          <details>
+            <summary>Who can attend?</summary>
+            <p>Years 7–13, split into beginner/intermediate/advanced tracks. Parents and teachers welcome to observe.</p>
+          </details>
+          <details>
+            <summary>What do I bring?</summary>
+            <p>Pencils, ruler, curiosity. If online, a camera-on setup helps for collaboration.</p>
+          </details>
+          <details>
+            <summary>Does it cost anything?</summary>
+            <p>The workshop is community-run and currently free. We may suggest a small donation to cover room hire.</p>
+          </details>
+          <details>
+            <summary>Where do I get updates?</summary>
+            <p>Use the button below to join the notification list. We send 1–2 concise emails per month.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="signup">
+      <div class="container">
+        <div class="cta" role="region" aria-label="Join notifications">
+          <div>
+            <h3 style="margin:0 0 4px">Stay in the loop</h3>
+            <p class="muted" style="margin:0">Join the email list to get monthly dates, topics, and resources. Unsubscribe anytime.</p>
+          </div>
+          <form id="newsletter" class="form" autocomplete="on" novalidate>
+            <!-- Honeypot anti-bot field -->
+            <label class="visually-hidden" for="website">Your website</label>
+            <input id="website" name="website" type="text" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <label class="visually-hidden" for="name">Name (optional)</label>
+            <input id="name" name="name" class="input" type="text" placeholder="Name (optional)" inputmode="text" />
+
+            <label class="visually-hidden" for="email">Email address</label>
+            <input id="email" name="email" class="input" type="email" placeholder="Email address" required inputmode="email" />
+            <button class="btn primary" type="submit">Join</button>
+          </form>
+        </div>
+        <p class="muted" style="margin:10px 0 0; font-size:13px">By joining, you agree to receive occasional emails about the workshop. We’ll never share your details.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap">
+      <div>&copy; <span id="year"></span> Monthly Maths Workshop</div>
+      <div>Questions? <a href="mailto:hello@example.org">hello@example.org</a></div>
+    </div>
+  </footer>
+
+  <!-- Modal for quick signup (same form fields) -->
+  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <header class="container" style="padding:12px 18px">
+        <h3 id="modal-title" style="margin:0">Get workshop updates</h3>
+        <button class="close-x" id="close-modal" aria-label="Close">×</button>
+      </header>
+      <div class="content">
+        <form id="modal-form" class="grid" style="grid-template-columns:1fr 1fr; gap:12px" novalidate>
+          <div style="grid-column:1/-1">
+            <p class="muted" style="margin:0">We’ll email you when registrations open each month.</p>
+          </div>
+          <label class="visually-hidden" for="hp">Your website</label>
+          <input id="hp" name="website" type="text" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <div>
+            <label class="visually-hidden" for="m-name">Name</label>
+            <input id="m-name" name="name" class="input" placeholder="Name (optional)" />
+          </div>
+          <div>
+            <label class="visually-hidden" for="m-email">Email</label>
+            <input id="m-email" name="email" class="input" type="email" placeholder="Email address" required />
+          </div>
+          <div style="grid-column:1/-1; display:flex; gap:12px; justify-content:flex-end">
+            <button type="button" class="btn" id="modal-cancel">Cancel</button>
+            <button type="submit" class="btn primary">Join</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Subscribed! Check your inbox for a welcome note.</div>
+
+  <script>
+    // Helper: format first Saturday of next month for the hero card
+    (function setNextDate(){
+      const el = document.getElementById('next-date');
+      if(!el) return;
+      const today = new Date();
+      const year = today.getMonth() === 11 ? today.getFullYear()+1 : today.getFullYear();
+      const month = (today.getMonth()+1) % 12; // next month [0..11]
+      const d = new Date(year, month, 1);
+      // find first Saturday
+      while(d.getDay() !== 6){ d.setDate(d.getDate()+1); }
+      el.textContent = d.toLocaleDateString(undefined, {weekday:'short', year:'numeric', month:'short', day:'numeric'});
+    })();
+
+    // Smooth scroll to Info
+    document.getElementById('scroll-info').addEventListener('click', () => {
+      document.getElementById('info').scrollIntoView({behavior:'smooth'});
+    });
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Modal controls
+    const modal = document.getElementById('modal');
+    const openBtn = document.getElementById('open-modal');
+    const closeBtn = document.getElementById('close-modal');
+    const modalCancel = document.getElementById('modal-cancel');
+
+    function openModal(){ modal.style.display = 'flex'; document.getElementById('m-email').focus(); }
+    function closeModal(){ modal.style.display = 'none'; }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modalCancel.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+    // Simple email validator
+    function validEmail(v){ return /.+@.+\..+/.test(String(v).toLowerCase()); }
+
+    // Fake subscribe: localStorage + toast (replace with your backend/APIs later)
+    function subscribe(payload){
+      const key = 'mmw_subscribers';
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      if(list.some(x => x.email.toLowerCase() === payload.email.toLowerCase())){
+        return { ok:true, duplicate:true };
+      }
+      list.push({ ...payload, ts: Date.now() });
+      localStorage.setItem(key, JSON.stringify(list));
+      return { ok:true };
+    }
+
+    // Toast feedback
+    const toast = document.getElementById('toast');
+    function showToast(msg){
+      toast.textContent = msg; toast.style.display = 'block';
+      setTimeout(()=> toast.style.display = 'none', 3200);
+    }
+
+    // Shared handler for both forms
+    function handleSubmit(e){
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      if ((fd.get('website') || '').trim() !== '') { return; } // honeypot
+      const name = (fd.get('name') || '').toString().trim();
+      const email = (fd.get('email') || '').toString().trim();
+      if(!validEmail(email)){
+        showToast('Please enter a valid email.');
+        const emailInput = e.target.querySelector('input[type=email]');
+        if(emailInput){ emailInput.focus(); emailInput.setAttribute('aria-invalid', 'true'); }
+        return;
+      }
+      const result = subscribe({ name, email });
+      if(result.ok){
+        showToast(result.duplicate ? 'You\'re already on the list. Welcome back!' : 'Subscribed! Check your inbox for a welcome note.');
+        e.target.reset();
+        closeModal();
+      }else{
+        showToast('Sorry, something went wrong. Please try again.');
+      }
+    }
+
+    document.getElementById('newsletter').addEventListener('submit', handleSubmit);
+    document.getElementById('modal-form').addEventListener('submit', handleSubmit);
+  </script>
+</body>
+</html>
