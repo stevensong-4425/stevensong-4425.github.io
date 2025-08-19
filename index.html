@@ -1,39 +1,42 @@
-<!DOCTYPE html>
+<!-- index.html -->
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            padding: 1.5rem 0;
-            font-size: 2rem;
-        }
-        main {
-            padding: 1rem 2rem;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maths Learning Hub</title>
+  <style>
+    body{margin:0;font-family:Arial, sans-serif;background:#f9f9f9;color:#222;line-height:1.6}
+    header{background:#333;color:#fff;padding:20px}
+    header h1{margin:0;font-size:24px}
+    nav a{color:#fff;margin-left:16px;text-decoration:none}
+    nav a:hover{text-decoration:underline}
+    main{max-width:800px;margin:40px auto;padding:0 20px}
+    section{margin:40px 0}
+    a.button{display:inline-block;padding:12px 20px;background:#0077cc;color:#fff;border-radius:6px;text-decoration:none}
+    a.button:hover{background:#005fa3}
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Maths Learning Hub</h1>
+    <nav>
+      <a href="workshop.html">Monthly Workshop</a>
+    </nav>
+  </header>
 
-    <header>
-        Your Custom Name Here
-    </header>
+  <main>
+    <h2>Welcome to the Maths Learning Hub</h2>
+    <p>This is a place where curious minds come together to explore mathematics in an engaging and fun way. Whether you are a beginner or advanced, there is something for you.</p>
 
-    <main>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel lacus at quam consequat ullamcorper. 
-        Sed venenatis justo at semper tincidunt. Aenean pretium velit sit amet turpis commodo, at vestibulum risus pretium.</p>
-    </main>
-
+    <section>
+      <h3>Featured: Monthly Maths Workshop</h3>
+      <p>Every month we host a workshop with problem-solving, discussions, and teamwork. Click below to learn more and sign up for notifications.</p>
+      <a class="button" href="workshop.html">Go to Workshop Page</a>
+    </section>
+  </main>
 </body>
 </html>
+
+<!-- workshop.html -->
+<!-- Place the existing workshop code here (from the previous file). Just save that as workshop.html and keep index.html as the entry page. -->
